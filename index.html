@@ -1,3 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BTS Events Team 2026</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+#billboard {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+</style>
+</head>
+
+<body>
+
+<div id="billboard"></div>
+
+<script>
+
 const eventTeam = [
     "DJTwiOct_1.png",
     "BTS_banner Sweets.png",
@@ -49,3 +102,38 @@ const eventTeam = [
     "SunshineeXO_Spammer1.jpg",
     "TimWildd_Spammer1.jpg"
 ];
+
+const billboard = document.getElementById("billboard");
+
+let current = 0;
+const slides = [];
+
+eventTeam.forEach((filename, index) => {
+    const img = document.createElement("img");
+
+    img.src = encodeURI(filename);
+    img.className = "slide";
+    img.alt = "BTS Events Team";
+
+    if (index === 0) {
+        img.classList.add("active");
+    }
+
+    billboard.appendChild(img);
+    slides.push(img);
+});
+
+if (slides.length > 1) {
+    setInterval(() => {
+        slides[current].classList.remove("active");
+
+        current = (current + 1) % slides.length;
+
+        slides[current].classList.add("active");
+    }, 8000);
+}
+
+</script>
+
+</body>
+</html>
